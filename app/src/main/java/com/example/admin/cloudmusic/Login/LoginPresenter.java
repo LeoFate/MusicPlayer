@@ -1,6 +1,8 @@
 package com.example.admin.cloudmusic.Login;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -35,6 +37,13 @@ public class LoginPresenter implements LoginContact.Presenter {
                 int code = response.body() != null ? response.body().getCode() : 0;
                 loginView.saveMessage(code);
                 if (code == 200) {
+                    Context context = (Context) loginView;
+                    SharedPreferences.Editor editor = context.getSharedPreferences("login", 0).edit();
+                    editor.putString("userName", response.body().getAccount().getUserName());
+                    editor.putString("id", response.body().getAccount().getId());
+                    editor.putString("avatar", response.body().getProfile().getAvatarUrl());
+                    editor.putString("nickName", response.body().getProfile().getNickname());
+                    editor.apply();
                     loginView.startMain(response.body());
                 } else if (code == 400) {
                     Toast.makeText((Context) loginView, CODE_400, Toast.LENGTH_SHORT).show();

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity {
     int layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +18,5 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setLayout(int layout) {
         this.layout = layout;
     }
-
-
 }
 

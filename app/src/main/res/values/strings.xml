@@ -5,4 +5,6 @@
     <string name="action_sign_in">Sign in</string>
     <string name="save_password">Saved Password</string>
     <string name="auto_login">Auto Login</string>
+    <string name="logout">Log out</string>
+    <string name="avatar">avatar</string>
 </resources>

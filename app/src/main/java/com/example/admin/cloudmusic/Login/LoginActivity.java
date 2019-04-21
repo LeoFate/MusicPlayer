@@ -23,6 +23,7 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
     private boolean box2;
     private String phoneNum;
     private String password;
+    private String uniqueID;
     private LoginPresenter loginPresenter = new LoginPresenter(this);
     private final String NULL_PHONE = "Your phone number can't be Null.";
     private final String NULL_PASSWORD = "Your password can't be Null.";
@@ -41,8 +42,15 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
         checkBox1 = findViewById(R.id.login_cb1);
         checkBox2 = findViewById(R.id.login_cb2);
         setBoxListener();
+        setUniqueID();
         getMessage();
         setButtonListener();
+    }
+
+    @Override
+    public void setUniqueID() {
+        assert getIntent().getExtras() != null;
+        uniqueID = getIntent().getExtras().getString("UniqueID");
     }
 
     @Override
@@ -110,7 +118,17 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
         }
         if (box2) {
             checkBox2.setChecked(true);
-            loginPresenter.login(phoneNum, password);
+            String userName = sharedPreferences.getString("userName", null);
+            String id = sharedPreferences.getString("id", null);
+            String avatar = sharedPreferences.getString("avatar", null);
+            String nickName = sharedPreferences.getString("nickName", null);
+            if (uniqueID.equals("LaunchActivity")) {
+                if (id != null && userName != null && avatar != null && nickName != null) {
+                    startMain(userName, id, avatar, nickName);
+                } else {
+                    loginPresenter.login(phoneNum, password);
+                }
+            }
         }
     }
 
@@ -120,7 +138,22 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
         Bundle bundle = new Bundle();
         bundle.putString("userName", loginData.getAccount().getUserName());
         bundle.putString("id", loginData.getAccount().getId());
-        intent.putExtra("bundle", bundle);
+        bundle.putString("avatar", loginData.getProfile().getAvatarUrl());
+        bundle.putString("nickName", loginData.getProfile().getNickname());
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void startMain(String userName, String id, String avatar, String nickName) {
+        Intent intent = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("userName", userName);
+        bundle.putString("id", id);
+        bundle.putString("avatar", avatar);
+        bundle.putString("nickName", nickName);
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }
