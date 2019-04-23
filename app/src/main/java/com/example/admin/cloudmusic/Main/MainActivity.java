@@ -1,12 +1,16 @@
 package com.example.admin.cloudmusic.Main;
 
-import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.admin.cloudmusic.Base.BaseActivity;
@@ -23,10 +27,10 @@ public class MainActivity extends BaseActivity implements MainContact.View {
     String id;
     String mAvatar;
     String mNickName;
+    ActionBarDrawerToggle mToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getLoginMessage();
         setLayout(R.layout.activity_main);
         super.onCreate(savedInstanceState);
     }
@@ -44,19 +48,29 @@ public class MainActivity extends BaseActivity implements MainContact.View {
         avatar = findViewById(R.id.avatar);
         nickName = findViewById(R.id.nick_name);
         logout = findViewById(R.id.logout);
-        initDrawer(mAvatar, mNickName);
+        getLoginMessage();
         initToolBar();
+        initDrawer(mAvatar, mNickName);
     }
 
     @Override
     public void getLoginMessage() {
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
+        assert bundle != null;
+        if (getCallClass().equals(LoginActivity.class.getName())) {
+            Toast.makeText(this, "Login successfully.", Toast.LENGTH_SHORT).show();
             userName = bundle.getString("userName");
             id = bundle.getString("id");
             mAvatar = bundle.getString("avatar");
             mNickName = bundle.getString("nickName");
         }
+    }
+
+    @Override
+    public void initToolBar() {
+        setSupportActionBar(mToolBar);
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -66,15 +80,26 @@ public class MainActivity extends BaseActivity implements MainContact.View {
                 .into(this.avatar);
         this.nickName.setText(nickName);
         logout.setOnClickListener(v -> {
-            Intent intent = getIntent(this, LoginActivity.class);
-            startActivity(intent);
+            startActivity(getIntent(this, LoginActivity.class));
+            finish();
         });
+        mToggle = new ActionBarDrawerToggle(this, mDrawer, mToolBar, R.string.drawer_open, R.string.drawer_close);
+        mToggle.setDrawerArrowDrawable(new DrawerArrowDrawable(this));
+        mDrawer.setDrawerListener(mToggle);
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override
-    public void initToolBar() {
-        setSupportActionBar(mToolBar);
-        assert getSupportActionBar() != null;
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mToggle.onConfigurationChanged(newConfig);
     }
 }

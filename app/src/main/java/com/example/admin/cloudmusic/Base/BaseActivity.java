@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity {
     int layout;
-    String className;
+    String className = getClass().getName();
     String callClass;
     public final String KEY = "ClassName";
 
@@ -16,7 +16,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null && getIntent().getExtras().getString(KEY) != null) {
             callClass = getIntent().getExtras().getString(KEY);
         }
-        setClassName(getClass().getName());
         super.onCreate(savedInstanceState);
         if (layout != 0) {
             setContentView(layout);
@@ -32,10 +31,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public String getClassName() {
         return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
     }
 
     public String getCallClass() {

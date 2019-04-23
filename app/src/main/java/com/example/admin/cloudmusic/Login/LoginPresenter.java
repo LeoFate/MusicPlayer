@@ -43,6 +43,10 @@ public class LoginPresenter implements LoginContact.Presenter {
                 Toast.makeText(context, "Invalid phone number or password.", Toast.LENGTH_SHORT).show();
             }
         } else {
+//  I want to get IPAddress dynamically, but I failed.
+//            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+//            int ipAddress = wifiManager.getConnectionInfo().getIpAddress();
+//            Log.e("TEXT", String.valueOf(ipAddress));
             LoginNetwork.getInstance().loginCall(phone, password).enqueue(new Callback<LoginData>() {
                 @Override
                 public void onResponse(@NonNull Call<LoginData> call, @NonNull Response<LoginData> response) {
@@ -75,6 +79,7 @@ public class LoginPresenter implements LoginContact.Presenter {
                 @Override
                 public void onFailure(@NonNull Call<LoginData> call, @NonNull Throwable t) {
                     Log.e(TAG, "Login network failure", t);
+                    Toast.makeText(context, "Login network failure", Toast.LENGTH_SHORT).show();
                 }
             });
         }

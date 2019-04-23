@@ -56,6 +56,10 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
                 checkBox2.setClickable(true);
             } else {
                 editor.remove("password");
+                editor.remove("userName");
+                editor.remove("id");
+                editor.remove("avatar");
+                editor.remove("nickName");
                 checkBox2.setClickable(false);
                 checkBox2.setChecked(false);
                 editor.putBoolean("box2", box2);
@@ -113,6 +117,8 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
             checkBox2.setChecked(true);
             if (getCallClass().equals(LaunchActivity.class.getName())) {
                 loginPresenter.login(phoneNum, password);
+            } else if (getCallClass().equals(MainActivity.class.getName())) {
+                Toast.makeText(this, "Log out successfully.", Toast.LENGTH_SHORT).show();
             }
         }
     }

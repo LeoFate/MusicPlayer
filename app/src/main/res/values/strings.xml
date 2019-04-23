@@ -7,4 +7,6 @@
     <string name="auto_login">Auto Login</string>
     <string name="logout">Log out</string>
     <string name="avatar">avatar</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
 </resources>

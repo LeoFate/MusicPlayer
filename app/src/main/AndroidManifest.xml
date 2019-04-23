@@ -4,6 +4,7 @@
     package="com.example.admin.cloudmusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,9 +17,11 @@
         <activity
             android:name=".Login.LoginActivity"
             android:theme="@style/MainTheme" />
-        <activity android:name=".Main.MainActivity"
-            android:theme="@style/MainTheme"/>
-        <activity android:name=".Launch.LaunchActivity"
+        <activity
+            android:name=".Main.MainActivity"
+            android:theme="@style/MainTheme" />
+        <activity
+            android:name=".Launch.LaunchActivity"
             android:theme="@style/StartTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
