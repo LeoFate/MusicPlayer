@@ -66,8 +66,7 @@ public class MainActivity extends BaseActivity implements MainContact.View {
                 .into(this.avatar);
         this.nickName.setText(nickName);
         logout.setOnClickListener(v -> {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.putExtra("UniqueID", "MainActivity");
+            Intent intent = getIntent(this, LoginActivity.class);
             startActivity(intent);
         });
     }

@@ -4,7 +4,6 @@ import com.example.admin.cloudmusic.Data.LoginData;
 
 public interface LoginContact {
     interface View {
-        void setUniqueID();
         void setBoxListener();
         void setButtonListener();
         void saveMessage(int Code);

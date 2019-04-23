@@ -1,5 +1,7 @@
 package com.example.admin.cloudmusic;
 
+import com.example.admin.cloudmusic.Login.LoginActivity;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

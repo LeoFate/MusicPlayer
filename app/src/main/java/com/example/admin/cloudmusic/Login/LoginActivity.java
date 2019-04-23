@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.admin.cloudmusic.Base.BaseActivity;
+import com.example.admin.cloudmusic.Launch.LaunchActivity;
 import com.example.admin.cloudmusic.Main.MainActivity;
 import com.example.admin.cloudmusic.Data.LoginData;
 import com.example.admin.cloudmusic.R;
@@ -23,7 +24,6 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
     private boolean box2;
     private String phoneNum;
     private String password;
-    private String uniqueID;
     private LoginPresenter loginPresenter = new LoginPresenter(this);
     private final String NULL_PHONE = "Your phone number can't be Null.";
     private final String NULL_PASSWORD = "Your password can't be Null.";
@@ -42,15 +42,8 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
         checkBox1 = findViewById(R.id.login_cb1);
         checkBox2 = findViewById(R.id.login_cb2);
         setBoxListener();
-        setUniqueID();
         getMessage();
         setButtonListener();
-    }
-
-    @Override
-    public void setUniqueID() {
-        assert getIntent().getExtras() != null;
-        uniqueID = getIntent().getExtras().getString("UniqueID");
     }
 
     @Override
@@ -118,42 +111,30 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
         }
         if (box2) {
             checkBox2.setChecked(true);
-            String userName = sharedPreferences.getString("userName", null);
-            String id = sharedPreferences.getString("id", null);
-            String avatar = sharedPreferences.getString("avatar", null);
-            String nickName = sharedPreferences.getString("nickName", null);
-            if (uniqueID.equals("LaunchActivity")) {
-                if (id != null && userName != null && avatar != null && nickName != null) {
-                    startMain(userName, id, avatar, nickName);
-                } else {
-                    loginPresenter.login(phoneNum, password);
-                }
+            if (getCallClass().equals(LaunchActivity.class.getName())) {
+                loginPresenter.login(phoneNum, password);
             }
         }
     }
 
     @Override
     public void startMain(LoginData loginData) {
-        Intent intent = new Intent(this, MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("userName", loginData.getAccount().getUserName());
-        bundle.putString("id", loginData.getAccount().getId());
-        bundle.putString("avatar", loginData.getProfile().getAvatarUrl());
-        bundle.putString("nickName", loginData.getProfile().getNickname());
-        intent.putExtras(bundle);
+        Intent intent = getIntent(this, MainActivity.class);
+        intent.putExtra("userName", loginData.getAccount().getUserName());
+        intent.putExtra("id", loginData.getAccount().getId());
+        intent.putExtra("avatar", loginData.getProfile().getAvatarUrl());
+        intent.putExtra("nickName", loginData.getProfile().getNickname());
         startActivity(intent);
         finish();
     }
 
     @Override
     public void startMain(String userName, String id, String avatar, String nickName) {
-        Intent intent = new Intent(this, MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("userName", userName);
-        bundle.putString("id", id);
-        bundle.putString("avatar", avatar);
-        bundle.putString("nickName", nickName);
-        intent.putExtras(bundle);
+        Intent intent = getIntent(this, MainActivity.class);
+        intent.putExtra("userName", userName);
+        intent.putExtra("id", id);
+        intent.putExtra("avatar", avatar);
+        intent.putExtra("nickName", nickName);
         startActivity(intent);
         finish();
     }
