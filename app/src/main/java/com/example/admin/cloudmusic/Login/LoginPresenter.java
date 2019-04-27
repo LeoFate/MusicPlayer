@@ -35,14 +35,14 @@ public class LoginPresenter implements LoginContact.Presenter {
         String userName = sharedPreferences.getString("userName", null);
         String id = sharedPreferences.getString("id", null);
         String avatar = sharedPreferences.getString("avatar", null);
-        String nickName = sharedPreferences.getString("nickName", null);
-        if (id != null && userName != null && avatar != null && nickName != null) {
-            if (phone.equals(sharedPreferences.getString("phone", null)) && password.equals(sharedPreferences.getString("password", null))) {
-                loginView.startMain(userName, id, avatar, nickName);
-            } else {
-                Toast.makeText(context, "Invalid phone number or password.", Toast.LENGTH_SHORT).show();
-            }
-        } else {
+//        String nickName = sharedPreferences.getString("nickName", null);
+//        if (id != null && userName != null && avatar != null && nickName != null) {
+//            if (phone.equals(sharedPreferences.getString("phone", null)) && password.equals(sharedPreferences.getString("password", null))) {
+//                loginView.startMain(userName, id, avatar, nickName);
+//            } else {
+//                Toast.makeText(context, "Invalid phone number or password.", Toast.LENGTH_SHORT).show();
+//            }
+//        } else {
 //  I want to get IPAddress dynamically, but I failed.
 //            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 //            int ipAddress = wifiManager.getConnectionInfo().getIpAddress();
@@ -82,6 +82,6 @@ public class LoginPresenter implements LoginContact.Presenter {
                     Toast.makeText(context, "Login network failure", Toast.LENGTH_SHORT).show();
                 }
             });
-        }
+//        }
     }
 }

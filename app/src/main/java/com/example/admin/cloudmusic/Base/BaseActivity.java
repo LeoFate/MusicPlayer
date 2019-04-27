@@ -6,10 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity {
-    int layout;
-    String className = getClass().getName();
-    String callClass;
-    public final String KEY = "ClassName";
+    private int layout;
+    private String callClass;
+    private final String KEY = "ClassName";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public String getClassName() {
-        return className;
+        return getClass().getName();
     }
 
     public String getCallClass() {

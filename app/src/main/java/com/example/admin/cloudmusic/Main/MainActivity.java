@@ -3,6 +3,8 @@ package com.example.admin.cloudmusic.Main;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
@@ -17,6 +19,9 @@ import com.example.admin.cloudmusic.Base.BaseActivity;
 import com.example.admin.cloudmusic.Login.LoginActivity;
 import com.example.admin.cloudmusic.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends BaseActivity implements MainContact.View {
     DrawerLayout mDrawer;
     Toolbar mToolBar;
@@ -28,6 +33,7 @@ public class MainActivity extends BaseActivity implements MainContact.View {
     String mAvatar;
     String mNickName;
     ActionBarDrawerToggle mToggle;
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +54,11 @@ public class MainActivity extends BaseActivity implements MainContact.View {
         avatar = findViewById(R.id.avatar);
         nickName = findViewById(R.id.nick_name);
         logout = findViewById(R.id.logout);
+        viewPager = findViewById(R.id.main_viewPager);
         getLoginMessage();
         initToolBar();
         initDrawer(mAvatar, mNickName);
+        initViewPager(id);
     }
 
     @Override
@@ -101,5 +109,16 @@ public class MainActivity extends BaseActivity implements MainContact.View {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void initViewPager(String uid) {
+        List<Fragment> fragmentList = new ArrayList<>();
+        MineFragment mineFragment = new MineFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("uid", uid);
+        mineFragment.setArguments(bundle);
+        fragmentList.add(mineFragment);
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragmentList));
     }
 }
