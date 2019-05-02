@@ -1,7 +1,6 @@
 package com.example.admin.cloudmusic.Service;
 
 import com.example.admin.cloudmusic.Data.PlayListData;
-import com.example.admin.cloudmusic.Data.SubcountData;
 
 import retrofit2.Call;
 
@@ -19,10 +18,6 @@ public class MainNetwork extends BasedNetwork {
             mainNetwork = new MainNetwork();
         }
         return mainNetwork;
-    }
-
-    public Call<SubcountData> getSubCount() {
-        return main.getSubCount();
     }
 
     public Call<PlayListData> getPlayList(String uid) {

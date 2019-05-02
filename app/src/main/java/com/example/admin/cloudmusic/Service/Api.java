@@ -2,7 +2,7 @@ package com.example.admin.cloudmusic.Service;
 
 import com.example.admin.cloudmusic.Data.LoginData;
 import com.example.admin.cloudmusic.Data.PlayListData;
-import com.example.admin.cloudmusic.Data.SubcountData;
+import com.example.admin.cloudmusic.Data.PlayListDetailData;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,10 +15,12 @@ public interface Api {
     }
 
     interface Main {
-
         @GET("/user/playlist")
         Call<PlayListData> getPlayList(@Query("uid") String uid);
-        @GET("/user/subcount")
-        Call<SubcountData> getSubCount();
+    }
+
+    interface PlayList {
+        @GET("/playlist/detail")
+        Call<PlayListDetailData> getPlayListDetail(@Query("id") String id);
     }
 }

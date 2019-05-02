@@ -28,17 +28,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.layout = layout;
     }
 
-    public String getClassName() {
-        return getClass().getName();
-    }
-
     public String getCallClass() {
         return callClass;
     }
 
     public Intent getIntent(Context context, Class<?> cls) {
         Intent intent = new Intent(context, cls);
-        intent.putExtra(KEY, getClassName());
+        intent.putExtra(KEY, getClass().getName());
         return intent;
     }
 }
