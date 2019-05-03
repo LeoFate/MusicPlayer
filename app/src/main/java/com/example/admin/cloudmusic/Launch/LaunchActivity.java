@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.admin.cloudmusic.Base.BaseActivity;
+import com.example.admin.cloudmusic.Base.BaseIntent;
 import com.example.admin.cloudmusic.Login.LoginActivity;
 
 public class LaunchActivity extends BaseActivity {
@@ -11,7 +12,7 @@ public class LaunchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent(this, LoginActivity.class);
+        Intent intent = BaseIntent.get(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
@@ -19,5 +20,4 @@ public class LaunchActivity extends BaseActivity {
     @Override
     public void initView() {
     }
-
 }

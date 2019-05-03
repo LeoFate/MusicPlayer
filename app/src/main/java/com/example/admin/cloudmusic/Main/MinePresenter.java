@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.admin.cloudmusic.Data.PlayListData;
+import com.example.admin.cloudmusic.Data.PlaylistData;
 import com.example.admin.cloudmusic.Service.MainNetwork;
 
 import retrofit2.Call;
@@ -24,14 +24,14 @@ public class MinePresenter implements MainContact.MinePresenter {
     public void getData(String uid) {
         Fragment frag = (Fragment) fragment;
         Context context = frag.getContext();
-        MainNetwork.getInstance().getPlayList(uid).enqueue(new Callback<PlayListData>() {
+        MainNetwork.getInstance().getPlayList(uid).enqueue(new Callback<PlaylistData>() {
             @Override
-            public void onResponse(@NonNull Call<PlayListData> call, @NonNull Response<PlayListData> response) {
+            public void onResponse(@NonNull Call<PlaylistData> call, @NonNull Response<PlaylistData> response) {
                 fragment.initRv(response.body());
             }
 
             @Override
-            public void onFailure(@NonNull Call<PlayListData> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<PlaylistData> call, @NonNull Throwable t) {
                 Toast.makeText(context, "Network Failure.", Toast.LENGTH_SHORT).show();
                 Log.e(getClass().getName(), "Fail to get playlist", t);
             }

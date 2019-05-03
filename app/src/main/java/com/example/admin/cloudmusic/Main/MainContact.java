@@ -1,6 +1,6 @@
 package com.example.admin.cloudmusic.Main;
 
-import com.example.admin.cloudmusic.Data.PlayListData;
+import com.example.admin.cloudmusic.Data.PlaylistData;
 
 public interface MainContact {
     interface View {
@@ -15,7 +15,7 @@ public interface MainContact {
     }
 
     interface MineFragment {
-        void initRv(PlayListData playListData);
+        void initRv(PlaylistData playlistData);
     }
 
     interface MinePresenter {

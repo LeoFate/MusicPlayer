@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.admin.cloudmusic.Base.BaseActivity;
+import com.example.admin.cloudmusic.Base.BaseIntent;
 import com.example.admin.cloudmusic.Launch.LaunchActivity;
 import com.example.admin.cloudmusic.Main.MainActivity;
 import com.example.admin.cloudmusic.Data.LoginData;
@@ -115,9 +116,9 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
         }
         if (box2) {
             checkBox2.setChecked(true);
-            if (getCallClass().equals(LaunchActivity.class.getName())) {
+            if (callClass.equals(LaunchActivity.class.getName())) {
                 loginPresenter.login(phoneNum, password);
-            } else if (getCallClass().equals(MainActivity.class.getName())) {
+            } else if (callClass.equals(MainActivity.class.getName())) {
                 Toast.makeText(this, "Log out successfully.", Toast.LENGTH_SHORT).show();
             }
         }
@@ -125,7 +126,7 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
 
     @Override
     public void startMain(LoginData loginData) {
-        Intent intent = getIntent(this, MainActivity.class);
+        Intent intent = BaseIntent.get(this, MainActivity.class);
         intent.putExtra("userName", loginData.getAccount().getUserName());
         intent.putExtra("id", loginData.getAccount().getId());
         intent.putExtra("avatar", loginData.getProfile().getAvatarUrl());
@@ -136,7 +137,7 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
 
     @Override
     public void startMain(String userName, String id, String avatar, String nickName) {
-        Intent intent = getIntent(this, MainActivity.class);
+        Intent intent = BaseIntent.get(this, MainActivity.class);
         intent.putExtra("userName", userName);
         intent.putExtra("id", id);
         intent.putExtra("avatar", avatar);

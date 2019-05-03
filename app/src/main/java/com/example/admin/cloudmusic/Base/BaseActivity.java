@@ -1,22 +1,17 @@
 package com.example.admin.cloudmusic.Base;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity {
-    private int layout;
-    private String callClass;
-    private final String KEY = "ClassName";
+    private int layout = -1;
+    protected String callClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (getIntent().getExtras() != null && getIntent().getExtras().getString(KEY) != null) {
-            callClass = getIntent().getExtras().getString(KEY);
-        }
         super.onCreate(savedInstanceState);
-        if (layout != 0) {
+        if (layout != -1) {
+            callClass = BaseIntent.getCallClass(getIntent());
             setContentView(layout);
         }
         initView();
@@ -26,16 +21,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void setLayout(int layout) {
         this.layout = layout;
-    }
-
-    public String getCallClass() {
-        return callClass;
-    }
-
-    public Intent getIntent(Context context, Class<?> cls) {
-        Intent intent = new Intent(context, cls);
-        intent.putExtra(KEY, getClass().getName());
-        return intent;
     }
 }
 

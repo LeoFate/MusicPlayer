@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.admin.cloudmusic.Base.BaseFragment;
-import com.example.admin.cloudmusic.Data.PlayListData;
+import com.example.admin.cloudmusic.Data.PlaylistData;
 import com.example.admin.cloudmusic.R;
 
 public class MineFragment extends BaseFragment implements MainContact.MineFragment {
@@ -32,8 +32,8 @@ public class MineFragment extends BaseFragment implements MainContact.MineFragme
     }
 
     @Override
-    public void initRv(PlayListData playListData) {
+    public void initRv(PlaylistData playlistData) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new MineAdapter(getContext(), playListData));
+        recyclerView.setAdapter(new MineAdapter(getContext(), playlistData));
     }
 }

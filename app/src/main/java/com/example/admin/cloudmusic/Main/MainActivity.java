@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.admin.cloudmusic.Base.BaseActivity;
+import com.example.admin.cloudmusic.Base.BaseIntent;
 import com.example.admin.cloudmusic.Login.LoginActivity;
 import com.example.admin.cloudmusic.R;
 
@@ -65,7 +66,7 @@ public class MainActivity extends BaseActivity implements MainContact.View {
     public void getLoginMessage() {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        if (getCallClass().equals(LoginActivity.class.getName())) {
+        if (callClass.equals(LoginActivity.class.getName())) {
             Toast.makeText(this, "Login successfully.", Toast.LENGTH_SHORT).show();
             userName = bundle.getString("userName");
             id = bundle.getString("id");
@@ -88,7 +89,7 @@ public class MainActivity extends BaseActivity implements MainContact.View {
                 .into(this.avatar);
         this.nickName.setText(nickName);
         logout.setOnClickListener(v -> {
-            startActivity(getIntent(this, LoginActivity.class));
+            startActivity(BaseIntent.get(this, LoginActivity.class));
             finish();
         });
         mToggle = new ActionBarDrawerToggle(this, mDrawer, mToolBar, R.string.drawer_open, R.string.drawer_close);

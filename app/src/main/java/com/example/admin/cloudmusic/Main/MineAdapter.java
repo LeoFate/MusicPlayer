@@ -4,15 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.admin.cloudmusic.Base.BaseIntent;
 import com.example.admin.cloudmusic.Base.BaseRVAdapter;
-import com.example.admin.cloudmusic.Data.PlayListData;
+import com.example.admin.cloudmusic.Data.PlaylistData;
 import com.example.admin.cloudmusic.Playlist.PlaylistActivity;
 import com.example.admin.cloudmusic.R;
 
@@ -24,14 +24,14 @@ public class MineAdapter extends BaseRVAdapter implements MainContact.MineAdapte
     private final int MAIN_TYPE = 3;
     private int createdPlaylistCount;
     private int subscribedPlayListCount;
-    private List<PlayListData.PlaylistBean> playlistList;
+    private List<PlaylistData.PlaylistBean> playlistList;
 
-    MineAdapter(Context context, PlayListData playListData) {
+    MineAdapter(Context context, PlaylistData playlistData) {
         super(context);
         createdPlaylistCount = 0;
         subscribedPlayListCount = 0;
-        playlistList = playListData.getPlaylist();
-        for (PlayListData.PlaylistBean p : playlistList) {
+        playlistList = playlistData.getPlaylist();
+        for (PlaylistData.PlaylistBean p : playlistList) {
             if (p.isOrdered()) {
                 subscribedPlayListCount++;
             } else {
@@ -53,13 +53,13 @@ public class MineAdapter extends BaseRVAdapter implements MainContact.MineAdapte
         RecyclerView.ViewHolder viewHolder = null;
         switch (viewType) {
             case CREATED_NAME_TYPE:
-                viewHolder = new NameHolder(LayoutInflater.from(getContext()).inflate(R.layout.item_mine_name, viewGroup, false));
+                viewHolder = new NameHolder(layoutInflater.inflate(R.layout.item_mine_name, viewGroup, false));
                 break;
             case MAIN_TYPE:
-                viewHolder = new MainHolder(LayoutInflater.from(getContext()).inflate(R.layout.item_mine_main, viewGroup, false));
+                viewHolder = new MainHolder(layoutInflater.inflate(R.layout.item_mine_main, viewGroup, false));
                 break;
             case SUBSCRIBED_NAME_TYPE:
-                viewHolder = new NameHolder(LayoutInflater.from(getContext()).inflate(R.layout.item_mine_name, viewGroup, false));
+                viewHolder = new NameHolder(layoutInflater.inflate(R.layout.item_mine_name, viewGroup, false));
                 break;
         }
         assert viewHolder != null;
@@ -76,7 +76,7 @@ public class MineAdapter extends BaseRVAdapter implements MainContact.MineAdapte
             }
             case MAIN_TYPE: {
                 MainHolder mainHolder = (MainHolder) viewHolder;
-                PlayListData.PlaylistBean playlistBean;
+                PlaylistData.PlaylistBean playlistBean;
                 String count;
                 if (position <= createdPlaylistCount) {
                     playlistBean = playlistList.get(position - 1);
@@ -85,7 +85,7 @@ public class MineAdapter extends BaseRVAdapter implements MainContact.MineAdapte
                     playlistBean = playlistList.get(position - 2);
                     count = playlistBean.getTrackCount() + " 首 by " + playlistBean.getCreator().getNickname();
                 }
-                Glide.with(getContext())
+                Glide.with(context)
                         .load(playlistBean.getCoverImgUrl())
                         .into(mainHolder.coverImage);
                 String name = playlistBean.getName();
@@ -95,9 +95,9 @@ public class MineAdapter extends BaseRVAdapter implements MainContact.MineAdapte
                 mainHolder.title.setText(name);
                 mainHolder.count.setText(count);
                 mainHolder.itemView.setOnClickListener(v -> {
-                    Intent intent = getIntent(getContext(), PlaylistActivity.class);
+                    Intent intent = BaseIntent.get(context, PlaylistActivity.class);
                     intent.putExtra("id", playlistBean.getId());
-                    getContext().startActivity(intent);
+                    context.startActivity(intent);
                 });
                 break;
             }

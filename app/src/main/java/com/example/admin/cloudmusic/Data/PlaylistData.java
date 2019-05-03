@@ -2,7 +2,7 @@ package com.example.admin.cloudmusic.Data;
 
 import java.util.List;
 
-public class PlayListData {
+public class PlaylistData {
 
     /**
      * more : false

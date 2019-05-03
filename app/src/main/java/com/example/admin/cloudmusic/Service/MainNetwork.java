@@ -1,6 +1,6 @@
 package com.example.admin.cloudmusic.Service;
 
-import com.example.admin.cloudmusic.Data.PlayListData;
+import com.example.admin.cloudmusic.Data.PlaylistData;
 
 import retrofit2.Call;
 
@@ -20,7 +20,7 @@ public class MainNetwork extends BasedNetwork {
         return mainNetwork;
     }
 
-    public Call<PlayListData> getPlayList(String uid) {
+    public Call<PlaylistData> getPlayList(String uid) {
         return main.getPlayList(uid);
     }
 }
